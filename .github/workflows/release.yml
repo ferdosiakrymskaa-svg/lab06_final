@@ -16,17 +16,19 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            generator: DEB;RPM
-            pattern: '*.deb *.rpm'
-            deps: sudo apt-get update && sudo apt-get install -y rpm
+          generator: DEB;RPM
+          pattern: |
+            _build/*.deb
+            _build/*.rpm
+          install_cmd: sudo apt-get update && sudo apt-get install -y rpm
           - os: macos-latest
-            generator: DragNDrop
-            pattern: '*.dmg'
-            deps: ''
+          generator: DragNDrop
+          pattern: _build/*.dmg
+          install_cmd: ''
           - os: windows-latest
-            generator: WIX
-            pattern: '*.msi'
-            deps: choco install wixtoolset -y
+          generator: WIX
+          pattern: _build/*.msi
+          install_cmd: choco install wixtoolset -y
 
     steps:
       - uses: actions/checkout@v3
